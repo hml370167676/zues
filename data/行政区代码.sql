@@ -1,3 +1,15 @@
+CREATE TABLE `address` (
+                           `id` int(11) NOT NULL AUTO_INCREMENT,
+                           `province_code` int(20) DEFAULT NULL COMMENT '省份代码',
+                           `province_name` varchar(50) DEFAULT NULL COMMENT '省份名称',
+                           `city_code` int(20) DEFAULT NULL COMMENT '城市代码',
+                           `city_name` varchar(50) DEFAULT NULL COMMENT '城市名称',
+                           `district_code` int(20) DEFAULT NULL COMMENT '区县代码',
+                           `district_name` varchar(50) DEFAULT NULL COMMENT '区县名称',
+                           PRIMARY KEY (`id`),
+                           KEY `id_idx` (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3146 DEFAULT CHARSET=utf8mb4;
+
 INSERT INTO `address` (province_code,province_name,city_code,city_name,district_code,district_name) values (110000, '北京市', 110100, '市辖区', 110101, '   东城区');
 INSERT INTO `address` (province_code,province_name,city_code,city_name,district_code,district_name) values (110000, '北京市', 110100, '市辖区', 110102, '   西城区');
 INSERT INTO `address` (province_code,province_name,city_code,city_name,district_code,district_name) values (110000, '北京市', 110100, '市辖区', 110105, '   朝阳区');
