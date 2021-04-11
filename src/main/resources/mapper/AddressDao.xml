@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hml.atp.zues.dao.AddressDao">
+  <resultMap id="BaseResultMap" type="com.hml.atp.zues.model.entity.Address">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="province_code" jdbcType="INTEGER" property="provinceCode" />
+    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+    <result column="city_code" jdbcType="INTEGER" property="cityCode" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="district_code" jdbcType="INTEGER" property="districtCode" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, province_code, province_name, city_code, city_name, district_code, district_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByEntity" resultType="com.hml.atp.zues.model.entity.Address"></select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.Address" useGeneratedKeys="true">
+    insert into address (province_code, province_name, city_code, 
+      city_name, district_code, district_name
+      )
+    values (#{provinceCode,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR}, #{cityCode,jdbcType=INTEGER}, 
+      #{cityName,jdbcType=VARCHAR}, #{districtCode,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.Address" useGeneratedKeys="true">
+    insert into address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="provinceName != null">
+        province_name,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="districtCode != null">
+        district_code,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null">
+        #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hml.atp.zues.model.entity.Address">
+    update address
+    <set>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null">
+        district_code = #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hml.atp.zues.model.entity.Address">
+    update address
+    set province_code = #{provinceCode,jdbcType=INTEGER},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=INTEGER},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      district_code = #{districtCode,jdbcType=INTEGER},
+      district_name = #{districtName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
