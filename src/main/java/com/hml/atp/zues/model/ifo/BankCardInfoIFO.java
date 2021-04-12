@@ -16,7 +16,7 @@ public class BankCardInfoIFO  implements Serializable {
      * 发卡行名称
      */
     @ApiModelProperty(value = "发卡行名称", example = "招商银行")
-    private String BankName;
+    private String bankName;
 
     /**
      * 卡名

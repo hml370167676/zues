@@ -7,7 +7,6 @@ import com.hml.atp.zues.model.vo.BankCardInfoVO;
 import com.hml.atp.zues.service.IdentityInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
