@@ -1,5 +1,6 @@
 package com.hml.atp.zues.dao;
 
+import com.hml.atp.zues.model.dto.AddressName;
 import com.hml.atp.zues.model.entity.Address;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,5 +19,9 @@ public interface AddressDao {
 
     int updateByPrimaryKey(Address record);
 
-    Address selectByEntity(Address record);
+    Address selectByAddressName(AddressName record);
+
+    int getCount();
+
+    int getFirstId();
 }

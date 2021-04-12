@@ -19,7 +19,28 @@
     from address
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByEntity" resultType="com.hml.atp.zues.model.entity.Address"></select>
+  <select id="selectByAddressName" resultType="com.hml.atp.zues.model.entity.Address">
+    select
+    <include refid="Base_Column_List" />
+    from address
+    <where>
+      <if test="provinceName!= null">
+        and province_name= #{provinceName}
+      </if>
+      <if test="provinceName != null">
+        and province_name = #{provinceName}
+      </if>
+      <if test="districtName != null">
+        and district_name = #{districtName}
+      </if>
+    </where>
+  </select>
+    <select id="getCount" resultType="java.lang.Integer">
+      select count(1) from address;
+    </select>
+  <select id="getFirstId" resultType="java.lang.Integer">
+    select id from address order by id asc limit 1;
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from address
     where id = #{id,jdbcType=INTEGER}
