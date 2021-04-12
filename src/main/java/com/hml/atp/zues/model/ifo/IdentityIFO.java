@@ -1,8 +1,12 @@
 package com.hml.atp.zues.model.ifo;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
+/**
+ * @author hanminglu
+ */
 @Data
 public class IdentityIFO {
 
@@ -16,8 +20,13 @@ public class IdentityIFO {
     private String district;
 
     @ApiModelProperty(value = "性别 1:男 2：女", example = "1")
-    private Integer sex;
+    @ApiParam(defaultValue = "1")
+    private Integer sex = 1;
 
     @ApiModelProperty(value = "出生日期", example = "19900101")
     private String birthday;
+
+    @ApiModelProperty(value = "生成数量", example = "5")
+    @ApiParam(defaultValue = "5")
+    private Integer size = 5;
 }

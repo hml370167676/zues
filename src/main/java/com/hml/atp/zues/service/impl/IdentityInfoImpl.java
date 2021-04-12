@@ -1,9 +1,10 @@
-package com.hml.atp.zues.service;
+package com.hml.atp.zues.service.impl;
 
 import com.hml.atp.zues.dao.AddressDao;
 import com.hml.atp.zues.model.dto.AddressName;
 import com.hml.atp.zues.model.entity.Address;
 import com.hml.atp.zues.model.ifo.IdentityIFO;
+import com.hml.atp.zues.service.IdentityInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +77,7 @@ public class IdentityInfoImpl implements IdentityInfo {
     public List<String> getIdentityList(IdentityIFO identityIFO) {
         List<String> identityList = new ArrayList<>();
         int count = 0;
-        while (count < 6) {
+        while (count < identityIFO.getSize()) {
             String addressCode = getAreaCode(identityIFO);
             String birthday = getBirthday(identityIFO.getBirthday());
             String sequenceCode = getSequenceCode(identityIFO.getSex());
