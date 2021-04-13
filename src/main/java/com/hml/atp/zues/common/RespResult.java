@@ -54,31 +54,30 @@ public class RespResult<T> implements Serializable
      * @param <T> 包装的结果类型
      * @return RespResult结果对象
      */
-    public static <T> RespResult<T> succeed(T object)
-    {
+    public static <T> RespResult<T> succeed(T object) {
         return new RespResult<>(SUCCESS_CODE, SUCCESS_MSG, object);
     }
+
     /**
- * 创建失败返回值
- *
- * @param errCode 此处为错误码(不能为{@value #SUCCESS_CODE})
- * @return RespResult结果对象
- */
-/*  public static <T> RespResult<T> fail(String errCode)
-  {
-    return new RespResult<T>(errCode, Code.getRespResultCode(errCode), null);
-  }*/
-  /**
- * 创建失败返回值
- *
- * @param errCode 此处为错误码(不能为{@value #SUCCESS_CODE})
- * @param object 需要包装的结果
- * @return RespResult结果对象
- *//*
-  public static <T> RespResult<T> fail(String errCode, T object)
-  {
-    return new RespResult<T>(errCode, Code.getRespResultCode(errCode), object);
-  }*/
+     * 创建失败返回值
+     *
+     * @param errCode 此处为错误码(不能为{@value #SUCCESS_CODE})
+     * @return RespResult结果对象
+     */
+    public static <T> RespResult<T> fail(String errCode) {
+        return new RespResult<T>(errCode, Code.getMsgByErrorCode(errCode), null);
+    }
+
+    /**
+     * 创建失败返回值
+     *
+     * @param errCode 此处为错误码(不能为{@value #SUCCESS_CODE})
+     * @param object  需要包装的结果
+     * @return RespResult结果对象
+     */
+  public static <T> RespResult<T> fail(String errCode, T object) {
+      return new RespResult<T>(errCode, Code.getMsgByErrorCode(errCode), object);
+  }
 
     /**
      * 创建失败返回值

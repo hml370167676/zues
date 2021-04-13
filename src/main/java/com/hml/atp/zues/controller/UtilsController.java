@@ -1,5 +1,6 @@
 package com.hml.atp.zues.controller;
 
+import com.hml.atp.zues.common.Code;
 import com.hml.atp.zues.common.RespResult;
 import com.hml.atp.zues.model.ifo.BankCardInfoIFO;
 import com.hml.atp.zues.model.ifo.IdentityIFO;
@@ -32,6 +33,10 @@ public class UtilsController {
     @ApiOperation(value = "生成身份证号")
     @PostMapping("/getIdentityNO")
     public RespResult<List<String>> getIdentityNO(@RequestBody @Validated IdentityIFO identityIFO) {
+        List<String> result = identityInfo.getIdentityList(identityIFO);
+        if (result == null || result.isEmpty()) {
+            return RespResult.fail(Code.RESULT_NULL_REE.getErrorCode());
+        }
         return RespResult.succeed(identityInfo.getIdentityList(identityIFO));
     }
 
