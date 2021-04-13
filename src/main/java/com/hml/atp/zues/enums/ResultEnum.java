@@ -7,8 +7,8 @@ package com.hml.atp.zues.enums;
  */
 public enum ResultEnum {
 
-    RETURN_SUCCESS("0000","成功"),
-    RETURN_FAIl("9999","失败");
+    RETURN_SUCCESS("0000", "成功"),
+    RETURN_FAIl("9999", "失败");
 
     private String resultCode;
     private String resultMsg;

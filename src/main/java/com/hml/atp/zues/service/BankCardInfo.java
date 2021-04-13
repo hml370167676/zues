@@ -11,6 +11,7 @@ import java.util.List;
 public interface BankCardInfo {
     /**
      * 生成银行卡号
+     *
      * @param bankCardInfoIFO
      * @return
      */

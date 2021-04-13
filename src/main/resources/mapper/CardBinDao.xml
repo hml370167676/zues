@@ -33,7 +33,7 @@
                 issuing_bank_name LIKE CONCAT("%",#{bankName,jdbcType=VARCHAR},"%")
             </if>
             <if test="cardName!=null and cardName!= ''">
-                AND card_name  LIKE CONCAT("%",#{cardName,jdbcType=VARCHAR},"%")
+                AND card_name LIKE CONCAT("%",#{cardName,jdbcType=VARCHAR},"%")
             </if>
             <if test="cardType!=null and cardType!= ''">
                 AND card_type LIKE CONCAT("%",#{cardType,jdbcType=VARCHAR},"%")

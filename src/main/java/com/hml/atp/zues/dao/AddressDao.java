@@ -23,27 +23,30 @@ public interface AddressDao {
     int updateByPrimaryKey(Address record);
 
     /**
-     *功能描述
-     * @author hanminglu
-     * @date 2021/4/13
+     * 功能描述
+     *
      * @param {record}
      * @return com.hml.atp.zues.model.entity.Address
+     * @author hanminglu
+     * @date 2021/4/13
      */
     Address selectByAddressName(AddressName record);
 
     /**
-     *功能描述
+     * 功能描述
+     *
+     * @return int
      * @author hanminglu
      * @date 2021/4/13
-     * @return int
      */
     int getCount();
 
     /**
-     *功能描述
+     * 功能描述
+     *
+     * @return int
      * @author hanminglu
      * @date 2021/4/13
-     * @return int
      */
     int getFirstId();
 

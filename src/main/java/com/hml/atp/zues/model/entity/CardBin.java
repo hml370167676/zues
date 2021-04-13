@@ -6,7 +6,8 @@ import java.io.Serializable;
 
 /**
  * card_bin
- * @author 
+ *
+ * @author
  */
 @Data
 public class CardBin implements Serializable {

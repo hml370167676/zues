@@ -45,7 +45,7 @@ public class UtilsController {
     public RespResult<List<BankCardInfoVO>> getBankCard(@RequestBody @Validated BankCardInfoIFO bankCardInfoIFO) {
         List<BankCardInfoVO> bankCardInfoVOList = bankCardInfo.getBankCardInfo(bankCardInfoIFO);
         if (bankCardInfoVOList == null || bankCardInfoVOList.isEmpty()) {
-            return RespResult.fail("1111", "结果异常！", bankCardInfoVOList);
+            return RespResult.fail(Code.RESULT_NULL_REE.getErrorCode());
         }
         return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoIFO));
     }

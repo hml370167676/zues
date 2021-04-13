@@ -7,13 +7,12 @@ import java.io.Serializable;
 /**
  * 返回状态和相关信息的实体类，状态码{@value #SUCCESS_CODE}表示成功，失败状态码请在各模块的service module中定义
  *
+ * @param <T> 包装的类型，必须可序列化
  * @author bailu
  * @since 2015年8月10日
- * @param <T> 包装的类型，必须可序列化
  */
 @Data
-public class RespResult<T> implements Serializable
-{
+public class RespResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,29 +28,27 @@ public class RespResult<T> implements Serializable
     /**
      * 错误相关信息
      */
-    private String errMsg;
+    private String msg;
 
     /**
      * 返回结果对象
      */
     private T model;
 
-    private RespResult()
-    {
+    private RespResult() {
     }
 
-    private RespResult(String statusCode, String msg, T model)
-    {
+    private RespResult(String statusCode, String msg, T model) {
         this.statusCode = statusCode;
         this.model = model;
-        this.errMsg = msg;
+        this.msg = msg;
     }
 
     /**
      * 创建成功返回值
      *
      * @param object 需要包装的结果
-     * @param <T> 包装的结果类型
+     * @param <T>    包装的结果类型
      * @return RespResult结果对象
      */
     public static <T> RespResult<T> succeed(T object) {
@@ -75,21 +72,20 @@ public class RespResult<T> implements Serializable
      * @param object  需要包装的结果
      * @return RespResult结果对象
      */
-  public static <T> RespResult<T> fail(String errCode, T object) {
-      return new RespResult<T>(errCode, Code.getMsgByErrorCode(errCode), object);
-  }
+    public static <T> RespResult<T> fail(String errCode, T object) {
+        return new RespResult<T>(errCode, Code.getMsgByErrorCode(errCode), object);
+    }
 
     /**
      * 创建失败返回值
      *
      * @param errCode 此处为错误码(不能为{@value #SUCCESS_CODE})
-     * @param errMsg 异常信息
-     * @param object 需要包装的结果
+     * @param msg     异常信息
+     * @param object  需要包装的结果
      * @return RespResult结果对象
      */
-    public static <T> RespResult<T> fail(String errCode, String errMsg, T object)
-    {
-        return new RespResult<>(errCode, errMsg, object);
+    public static <T> RespResult<T> fail(String errCode, String msg, T object) {
+        return new RespResult<>(errCode, msg, object);
     }
 
     /**
@@ -97,23 +93,22 @@ public class RespResult<T> implements Serializable
      *
      * @return 是否成功布尔值
      */
-    public boolean isSuccess()
-    {
+    public boolean isSuccess() {
         return SUCCESS_CODE.equals(statusCode);
     }
+
     /**
      * 结果是否成功，根据状态码是否等于{@value #SUCCESS_CODE}且model不为空来判断
      *
      * @return 是否成功布尔值
      */
-    public boolean isSuccessful(){
-        return isSuccess()&&model!=null;
+    public boolean isSuccessful() {
+        return isSuccess() && model != null;
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("RespResult [statusCode=%s, errMsg=%s, object=%s]", statusCode, errMsg, model);
+    public String toString() {
+        return String.format("RespResult [statusCode=%s, msg=%s, object=%s]", statusCode, msg, model);
     }
 
 }

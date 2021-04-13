@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author hanminglu
  */
 @Data
-public class BankCardInfoIFO  implements Serializable {
+public class BankCardInfoIFO implements Serializable {
 
     /**
      * 发卡行名称

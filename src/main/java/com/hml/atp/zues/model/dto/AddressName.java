@@ -11,17 +11,17 @@ import lombok.Data;
 public class AddressName {
 
     /**
-     *省份名称
+     * 省份名称
      */
     private String provinceName;
 
     /**
-     *城市名称
+     * 城市名称
      */
     private String cityName;
 
     /**
-     *区县名称
+     * 区县名称
      */
     private String districtName;
 }

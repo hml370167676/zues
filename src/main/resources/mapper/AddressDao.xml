@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hml.atp.zues.dao.AddressDao">
   <resultMap id="BaseResultMap" type="com.hml.atp.zues.model.entity.Address">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="province_code" jdbcType="INTEGER" property="provinceCode" />
-    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
-    <result column="city_code" jdbcType="INTEGER" property="cityCode" />
-    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
-    <result column="district_code" jdbcType="INTEGER" property="districtCode" />
-    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="province_code" jdbcType="INTEGER" property="provinceCode"/>
+    <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+    <result column="city_code" jdbcType="INTEGER" property="cityCode"/>
+    <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+    <result column="district_code" jdbcType="INTEGER" property="districtCode"/>
+    <result column="district_name" jdbcType="VARCHAR" property="districtName"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, province_code, province_name, city_code, city_name, district_code, district_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from address
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByAddressName" resultType="com.hml.atp.zues.model.entity.Address">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"/>
     from address
     <where>
       <if test="provinceName!= null">
@@ -35,25 +35,30 @@
       </if>
     </where>
   </select>
-    <select id="getCount" resultType="java.lang.Integer">
-      select count(1) from address;
-    </select>
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(1)
+    from address;
+  </select>
   <select id="getFirstId" resultType="java.lang.Integer">
-    select id from address order by id  limit 1;
+    select id
+    from address
+    order by id
+    limit 1;
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from address
+    delete
+    from address
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.Address" useGeneratedKeys="true">
-    insert into address (province_code, province_name, city_code, 
-      city_name, district_code, district_name
-      )
-    values (#{provinceCode,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR}, #{cityCode,jdbcType=INTEGER}, 
-      #{cityName,jdbcType=VARCHAR}, #{districtCode,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR}
-      )
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.Address"
+          useGeneratedKeys="true">
+    insert into address (province_code, province_name, city_code,
+                         city_name, district_code, district_name)
+    values (#{provinceCode,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR}, #{cityCode,jdbcType=INTEGER},
+            #{cityName,jdbcType=VARCHAR}, #{districtCode,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.Address" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.Address"
+          useGeneratedKeys="true">
     insert into address
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="provinceCode != null">
@@ -123,11 +128,11 @@
   <update id="updateByPrimaryKey" parameterType="com.hml.atp.zues.model.entity.Address">
     update address
     set province_code = #{provinceCode,jdbcType=INTEGER},
-      province_name = #{provinceName,jdbcType=VARCHAR},
-      city_code = #{cityCode,jdbcType=INTEGER},
-      city_name = #{cityName,jdbcType=VARCHAR},
-      district_code = #{districtCode,jdbcType=INTEGER},
-      district_name = #{districtName,jdbcType=VARCHAR}
+        province_name = #{provinceName,jdbcType=VARCHAR},
+        city_code     = #{cityCode,jdbcType=INTEGER},
+        city_name     = #{cityName,jdbcType=VARCHAR},
+        district_code = #{districtCode,jdbcType=INTEGER},
+        district_name = #{districtName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -24,7 +24,7 @@ public class Knife4jConfiguration {
                         .title("工具类接口")
                         .description("# 用于生成各种测试数据")
                         .termsOfServiceUrl("http://www.xx.com/")
-                        .contact(new Contact("hanminglu","","370167676@qq.com"))
+                        .contact(new Contact("hanminglu", "", "370167676@qq.com"))
                         .version("1.0")
                         .build())
                 //分组名称

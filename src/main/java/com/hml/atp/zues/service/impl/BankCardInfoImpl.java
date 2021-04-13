@@ -30,7 +30,7 @@ public class BankCardInfoImpl implements BankCardInfo {
         if (cardBinList == null || cardBinList.isEmpty()) {
             return null;
         }
-        log.info("获取卡BIN信息结果为：{}",cardBinList);
+        log.info("获取卡BIN信息结果为：{}", cardBinList);
         List<BankCardInfoVO> bankCardInfoVOList = new ArrayList<>();
         for (CardBin cardBin : cardBinList) {
             BankCardInfoVO bankCardInfoVO = new BankCardInfoVO();
@@ -50,7 +50,7 @@ public class BankCardInfoImpl implements BankCardInfo {
      * @param codeLength
      * @return cardNo
      * @author hanminglu
-
+     *
      * <p>
      * 生成n位符合Luhn规则的卡号的算法：
      * <p>
@@ -93,7 +93,7 @@ public class BankCardInfoImpl implements BankCardInfo {
     }
 
     /**
-     *功能描述
+     * 功能描述
      * 检验数字算法（Luhn Check Digit Algorithm）
      * 银行卡号码的校验采用Luhn算法，校验过程大致如下：
      * <p>
@@ -107,10 +107,11 @@ public class BankCardInfoImpl implements BankCardInfo {
      * 4. 如果s能够整除10，则此号码有效，否则号码无效。
      * <p>
      * 因为最终的结果会对10取余来判断是否能够整除10，所以又叫做模10算法
-     * @author hanminglu
-     * @date 2021/4/13
+     *
      * @param cardNo
      * @return java.lang.Boolean
+     * @author hanminglu
+     * @date 2021/4/13
      */
     public static Boolean luhn(String cardNo) {
 

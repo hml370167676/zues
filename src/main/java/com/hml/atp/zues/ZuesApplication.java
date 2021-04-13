@@ -1,9 +1,11 @@
 package com.hml.atp.zues;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author hanminglu
+ */
 @SpringBootApplication
 //@MapperScan("com.hml.atp.zues.dao.mapper")
 public class ZuesApplication {

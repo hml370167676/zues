@@ -18,23 +18,23 @@ public class Address implements Serializable {
      */
     private Long provinceCode;
     /**
-     *省份名称
+     * 省份名称
      */
     private String provinceName;
     /**
-     *城市代码
+     * 城市代码
      */
     private Long cityCode;
     /**
-     *城市名称
+     * 城市名称
      */
     private String cityName;
     /**
-     *区县代码
+     * 区县代码
      */
     private Long districtCode;
     /**
-     *区县名称
+     * 区县名称
      */
     private String districtName;
 
