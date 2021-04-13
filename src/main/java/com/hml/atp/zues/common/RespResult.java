@@ -1,6 +1,9 @@
 package com.hml.atp.zues.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -12,6 +15,9 @@ import java.io.Serializable;
  * @since 2015年8月10日
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class RespResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,14 +41,7 @@ public class RespResult<T> implements Serializable {
      */
     private T model;
 
-    private RespResult() {
-    }
 
-    private RespResult(String statusCode, String msg, T model) {
-        this.statusCode = statusCode;
-        this.model = model;
-        this.msg = msg;
-    }
 
     /**
      * 创建成功返回值
@@ -106,9 +105,5 @@ public class RespResult<T> implements Serializable {
         return isSuccess() && model != null;
     }
 
-    @Override
-    public String toString() {
-        return String.format("RespResult [statusCode=%s, msg=%s, object=%s]", statusCode, msg, model);
-    }
 
 }
