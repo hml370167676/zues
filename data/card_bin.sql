@@ -5,7 +5,7 @@ CREATE TABLE `card_bin` (
   `card_name` varchar(100) DEFAULT NULL COMMENT '卡名',
   `code_length` int(2) DEFAULT NULL COMMENT '卡号长度',
   `card_bin_length` int(2) DEFAULT NULL COMMENT '卡BIN长度',
-  `card_bin` int(11) DEFAULT NULL COMMENT '卡BIN',
+  `card_bin` varchar(15) DEFAULT NULL COMMENT '卡BIN',
   `card_type` varchar(10) DEFAULT NULL COMMENT '卡种',
   PRIMARY KEY (`id`),
   KEY `id_idx` (`id`) USING BTREE

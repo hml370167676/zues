@@ -27,7 +27,7 @@ public class BankCardInfoIFO  implements Serializable {
     /**
      * 卡种
      */
-    @ApiModelProperty(value = "卡类型", example = "借记卡")
+    @ApiModelProperty(value = "卡类型：借记卡、贷记卡、准贷记卡", example = "借记卡")
     @ApiParam(defaultValue = "借记卡")
     private String cardType;
     /**

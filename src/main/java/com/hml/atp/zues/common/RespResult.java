@@ -63,12 +63,12 @@ public class RespResult<T> implements Serializable
  *
  * @param errCode 此处为错误码(不能为{@value #SUCCESS_CODE})
  * @return RespResult结果对象
- *//*
-  public static <T> RespResult<T> fail(String errCode)
+ */
+/*  public static <T> RespResult<T> fail(String errCode)
   {
     return new RespResult<T>(errCode, Code.getRespResultCode(errCode), null);
-  }
-  *//**
+  }*/
+  /**
  * 创建失败返回值
  *
  * @param errCode 此处为错误码(不能为{@value #SUCCESS_CODE})

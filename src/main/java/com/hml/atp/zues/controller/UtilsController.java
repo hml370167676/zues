@@ -4,6 +4,7 @@ import com.hml.atp.zues.common.RespResult;
 import com.hml.atp.zues.model.ifo.BankCardInfoIFO;
 import com.hml.atp.zues.model.ifo.IdentityIFO;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;
+import com.hml.atp.zues.service.BankCardInfo;
 import com.hml.atp.zues.service.IdentityInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,9 @@ public class UtilsController {
     @Resource
     public IdentityInfo identityInfo;
 
+    @Resource
+    public BankCardInfo bankCardInfo;
+
     @ApiOperation(value = "生成身份证号")
     @PostMapping("/getIdentityNO")
     public RespResult<List<String>> getIdentityNO(@RequestBody @Validated IdentityIFO identityIFO) {
@@ -33,9 +37,11 @@ public class UtilsController {
 
     @ApiOperation(value = "生成银行卡号")
     @PostMapping("/getBankCard")
-    public RespResult<BankCardInfoVO> getBankCard(@RequestBody @Validated BankCardInfoIFO bankCardInfoIFO) {
-        //TODO 生成银行卡号
-        BankCardInfoVO bankCardInfo = new BankCardInfoVO();
-        return RespResult.succeed(bankCardInfo);
+    public RespResult<List<BankCardInfoVO>> getBankCard(@RequestBody @Validated BankCardInfoIFO bankCardInfoIFO) {
+        List<BankCardInfoVO> bankCardInfoVOList = bankCardInfo.getBankCardInfo(bankCardInfoIFO);
+        if (bankCardInfoVOList.isEmpty() || bankCardInfoVOList == null) {
+            return RespResult.fail("1111","结果异常！",bankCardInfoVOList);
+        }
+        return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoIFO));
     }
 }

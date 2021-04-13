@@ -127,9 +127,9 @@ public class IdentityInfoImpl implements IdentityInfo {
             int thirdNum;
             log.info("性别为男，开始生成奇数顺序码！");
             while (true) {
-                int tmp = random.nextInt(10);
-                if ((tmp & 1) == 1) {
-                    thirdNum = tmp;
+                int temp = random.nextInt(10);
+                if ((temp & 1) == 1) {
+                    thirdNum = temp;
                     break;
                 }
             }
@@ -143,9 +143,9 @@ public class IdentityInfoImpl implements IdentityInfo {
             int sequenceCode = random.nextInt(100);
             int thirdNum;
             while (true) {
-                int tmp = random.nextInt(10);
-                if ((tmp & 1) != 1) {
-                    thirdNum = tmp;
+                int temp = random.nextInt(10);
+                if ((temp & 1) != 1) {
+                    thirdNum = temp;
                     break;
                 }
             }

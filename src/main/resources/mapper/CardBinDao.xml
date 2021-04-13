@@ -1,128 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hml.atp.zues.dao.CardBinDao">
-  <resultMap id="BaseResultMap" type="com.hml.atp.zues.model.entity.CardBin">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="issuing_bank_name" jdbcType="VARCHAR" property="issuingBankName" />
-    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
-    <result column="card_name" jdbcType="VARCHAR" property="cardName" />
-    <result column="code_length" jdbcType="INTEGER" property="codeLength" />
-    <result column="card_bin_length" jdbcType="INTEGER" property="cardBinLength" />
-    <result column="card_bin" jdbcType="INTEGER" property="cardBin" />
-    <result column="card_type" jdbcType="VARCHAR" property="cardType" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.hml.atp.zues.model.entity.CardBin">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="issuing_bank_name" jdbcType="VARCHAR" property="issuingBankName"/>
+        <result column="org_code" jdbcType="INTEGER" property="orgCode"/>
+        <result column="card_name" jdbcType="VARCHAR" property="cardName"/>
+        <result column="code_length" jdbcType="INTEGER" property="codeLength"/>
+        <result column="card_bin_length" jdbcType="INTEGER" property="cardBinLength"/>
+        <result column="card_bin" jdbcType="INTEGER" property="cardBin"/>
+        <result column="card_type" jdbcType="VARCHAR" property="cardType"/>
+    </resultMap>
 
-  <sql id="Base_Column_List">
-    id, issuing_bank_name, org_code, card_name, code_length, card_bin_length, card_bin, 
+    <sql id="Base_Column_List">
+        id
+        , issuing_bank_name, org_code, card_name, code_length, card_bin_length, card_bin,
     card_type
-  </sql>
+    </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from card_bin
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectByBankCardInfo" resultType="com.hml.atp.zues.model.entity.CardBin">
-
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from card_bin
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.CardBin" useGeneratedKeys="true">
-    insert into card_bin (issuing_bank_name, org_code, card_name, 
-      code_length, card_bin_length, card_bin, 
-      card_type)
-    values (#{issuingBankName,jdbcType=VARCHAR}, #{orgCode,jdbcType=INTEGER}, #{cardName,jdbcType=VARCHAR}, 
-      #{codeLength,jdbcType=INTEGER}, #{cardBinLength,jdbcType=INTEGER}, #{cardBin,jdbcType=INTEGER}, 
-      #{cardType,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.CardBin" useGeneratedKeys="true">
-    insert into card_bin
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="issuingBankName != null">
-        issuing_bank_name,
-      </if>
-      <if test="orgCode != null">
-        org_code,
-      </if>
-      <if test="cardName != null">
-        card_name,
-      </if>
-      <if test="codeLength != null">
-        code_length,
-      </if>
-      <if test="cardBinLength != null">
-        card_bin_length,
-      </if>
-      <if test="cardBin != null">
-        card_bin,
-      </if>
-      <if test="cardType != null">
-        card_type,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="issuingBankName != null">
-        #{issuingBankName,jdbcType=VARCHAR},
-      </if>
-      <if test="orgCode != null">
-        #{orgCode,jdbcType=INTEGER},
-      </if>
-      <if test="cardName != null">
-        #{cardName,jdbcType=VARCHAR},
-      </if>
-      <if test="codeLength != null">
-        #{codeLength,jdbcType=INTEGER},
-      </if>
-      <if test="cardBinLength != null">
-        #{cardBinLength,jdbcType=INTEGER},
-      </if>
-      <if test="cardBin != null">
-        #{cardBin,jdbcType=INTEGER},
-      </if>
-      <if test="cardType != null">
-        #{cardType,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hml.atp.zues.model.entity.CardBin">
-    update card_bin
-    <set>
-      <if test="issuingBankName != null">
-        issuing_bank_name = #{issuingBankName,jdbcType=VARCHAR},
-      </if>
-      <if test="orgCode != null">
-        org_code = #{orgCode,jdbcType=INTEGER},
-      </if>
-      <if test="cardName != null">
-        card_name = #{cardName,jdbcType=VARCHAR},
-      </if>
-      <if test="codeLength != null">
-        code_length = #{codeLength,jdbcType=INTEGER},
-      </if>
-      <if test="cardBinLength != null">
-        card_bin_length = #{cardBinLength,jdbcType=INTEGER},
-      </if>
-      <if test="cardBin != null">
-        card_bin = #{cardBin,jdbcType=INTEGER},
-      </if>
-      <if test="cardType != null">
-        card_type = #{cardType,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hml.atp.zues.model.entity.CardBin">
-    update card_bin
-    set issuing_bank_name = #{issuingBankName,jdbcType=VARCHAR},
-      org_code = #{orgCode,jdbcType=INTEGER},
-      card_name = #{cardName,jdbcType=VARCHAR},
-      code_length = #{codeLength,jdbcType=INTEGER},
-      card_bin_length = #{cardBinLength,jdbcType=INTEGER},
-      card_bin = #{cardBin,jdbcType=INTEGER},
-      card_type = #{cardType,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from card_bin
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByBankCardInfo" resultType="com.hml.atp.zues.model.entity.CardBin">
+        select
+        <include refid="Base_Column_List"/>
+        from card_bin
+        <where>
+            <if test="bankName!=null and bankName!= ''">
+                issuing_bank_name LIKE CONCAT("%",#{bankName,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="cardName!=null and cardName!= ''">
+                AND card_name  LIKE CONCAT("%",#{cardName,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="cardType!=null and cardType!= ''">
+                AND card_type LIKE CONCAT("%",#{cardType,jdbcType=VARCHAR},"%")
+            </if>
+        </where>
+        LIMIT #{size}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from card_bin
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.CardBin"
+            useGeneratedKeys="true">
+        insert into card_bin (issuing_bank_name, org_code, card_name,
+                              code_length, card_bin_length, card_bin,
+                              card_type)
+        values (#{issuingBankName,jdbcType=VARCHAR}, #{orgCode,jdbcType=INTEGER}, #{cardName,jdbcType=VARCHAR},
+                #{codeLength,jdbcType=INTEGER}, #{cardBinLength,jdbcType=INTEGER}, #{cardBin,jdbcType=INTEGER},
+                #{cardType,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.CardBin"
+            useGeneratedKeys="true">
+        insert into card_bin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="issuingBankName != null">
+                issuing_bank_name,
+            </if>
+            <if test="orgCode != null">
+                org_code,
+            </if>
+            <if test="cardName != null">
+                card_name,
+            </if>
+            <if test="codeLength != null">
+                code_length,
+            </if>
+            <if test="cardBinLength != null">
+                card_bin_length,
+            </if>
+            <if test="cardBin != null">
+                card_bin,
+            </if>
+            <if test="cardType != null">
+                card_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="issuingBankName != null">
+                #{issuingBankName,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode,jdbcType=INTEGER},
+            </if>
+            <if test="cardName != null">
+                #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeLength != null">
+                #{codeLength,jdbcType=INTEGER},
+            </if>
+            <if test="cardBinLength != null">
+                #{cardBinLength,jdbcType=INTEGER},
+            </if>
+            <if test="cardBin != null">
+                #{cardBin,jdbcType=INTEGER},
+            </if>
+            <if test="cardType != null">
+                #{cardType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hml.atp.zues.model.entity.CardBin">
+        update card_bin
+        <set>
+            <if test="issuingBankName != null">
+                issuing_bank_name = #{issuingBankName,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null">
+                org_code = #{orgCode,jdbcType=INTEGER},
+            </if>
+            <if test="cardName != null">
+                card_name = #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeLength != null">
+                code_length = #{codeLength,jdbcType=INTEGER},
+            </if>
+            <if test="cardBinLength != null">
+                card_bin_length = #{cardBinLength,jdbcType=INTEGER},
+            </if>
+            <if test="cardBin != null">
+                card_bin = #{cardBin,jdbcType=INTEGER},
+            </if>
+            <if test="cardType != null">
+                card_type = #{cardType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hml.atp.zues.model.entity.CardBin">
+        update card_bin
+        set issuing_bank_name = #{issuingBankName,jdbcType=VARCHAR},
+            org_code          = #{orgCode,jdbcType=INTEGER},
+            card_name         = #{cardName,jdbcType=VARCHAR},
+            code_length       = #{codeLength,jdbcType=INTEGER},
+            card_bin_length   = #{cardBinLength,jdbcType=INTEGER},
+            card_bin          = #{cardBin,jdbcType=INTEGER},
+            card_type         = #{cardType,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

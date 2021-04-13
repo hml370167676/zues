@@ -3,6 +3,8 @@ package com.hml.atp.zues.service;
 import com.hml.atp.zues.model.ifo.BankCardInfoIFO;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;
 
+import java.util.List;
+
 /**
  * @author hanminglu
  */
@@ -12,5 +14,5 @@ public interface BankCardInfo {
      * @param bankCardInfoIFO
      * @return
      */
-    BankCardInfoVO getBankCardInfo(BankCardInfoIFO bankCardInfoIFO);
+    List<BankCardInfoVO> getBankCardInfo(BankCardInfoIFO bankCardInfoIFO);
 }

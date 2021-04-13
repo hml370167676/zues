@@ -5,6 +5,8 @@ import com.hml.atp.zues.model.entity.CardBin;
 import com.hml.atp.zues.model.ifo.BankCardInfoIFO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface CardBinDao {
 
@@ -23,5 +25,5 @@ public interface CardBinDao {
 
     int updateByPrimaryKey(CardBin record);
 
-    CardBin selectByBankCardInfo(BankCardInfoIFO bankCardInfoIFO);
+    List<CardBin> selectByBankCardInfo(BankCardInfoIFO bankCardInfoIFO);
 }
