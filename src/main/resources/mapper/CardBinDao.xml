@@ -8,7 +8,7 @@
         <result column="card_name" jdbcType="VARCHAR" property="cardName"/>
         <result column="code_length" jdbcType="INTEGER" property="codeLength"/>
         <result column="card_bin_length" jdbcType="INTEGER" property="cardBinLength"/>
-        <result column="card_bin" jdbcType="INTEGER" property="cardBin"/>
+        <result column="card_bin" jdbcType="VARCHAR" property="cardBin"/>
         <result column="card_type" jdbcType="VARCHAR" property="cardType"/>
     </resultMap>
 
@@ -52,7 +52,7 @@
                               code_length, card_bin_length, card_bin,
                               card_type)
         values (#{issuingBankName,jdbcType=VARCHAR}, #{orgCode,jdbcType=INTEGER}, #{cardName,jdbcType=VARCHAR},
-                #{codeLength,jdbcType=INTEGER}, #{cardBinLength,jdbcType=INTEGER}, #{cardBin,jdbcType=INTEGER},
+                #{codeLength,jdbcType=INTEGER}, #{cardBinLength,jdbcType=INTEGER}, #{cardBin,jdbcType=VARCHAR},
                 #{cardType,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hml.atp.zues.model.entity.CardBin"
@@ -98,7 +98,7 @@
                 #{cardBinLength,jdbcType=INTEGER},
             </if>
             <if test="cardBin != null">
-                #{cardBin,jdbcType=INTEGER},
+                #{cardBin,jdbcType=VARCHAR},
             </if>
             <if test="cardType != null">
                 #{cardType,jdbcType=VARCHAR},
@@ -124,7 +124,7 @@
                 card_bin_length = #{cardBinLength,jdbcType=INTEGER},
             </if>
             <if test="cardBin != null">
-                card_bin = #{cardBin,jdbcType=INTEGER},
+                card_bin = #{cardBin,jdbcType=VARCHAR},
             </if>
             <if test="cardType != null">
                 card_type = #{cardType,jdbcType=VARCHAR},
@@ -139,7 +139,7 @@
             card_name         = #{cardName,jdbcType=VARCHAR},
             code_length       = #{codeLength,jdbcType=INTEGER},
             card_bin_length   = #{cardBinLength,jdbcType=INTEGER},
-            card_bin          = #{cardBin,jdbcType=INTEGER},
+            card_bin          = #{cardBin,jdbcType=VARCHAR},
             card_type         = #{cardType,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>

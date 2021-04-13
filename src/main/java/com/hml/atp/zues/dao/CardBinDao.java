@@ -20,9 +20,7 @@ public interface CardBinDao {
 
     int insertSelective(CardBin record);
 
-
     CardBin selectByPrimaryKey(Integer id);
-
 
     int updateByPrimaryKeySelective(CardBin record);
 
