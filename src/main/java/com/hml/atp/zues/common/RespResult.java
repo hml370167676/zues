@@ -56,7 +56,7 @@ public class RespResult<T> implements Serializable
      */
     public static <T> RespResult<T> succeed(T object)
     {
-        return new RespResult<T>(SUCCESS_CODE, SUCCESS_MSG, object);
+        return new RespResult<>(SUCCESS_CODE, SUCCESS_MSG, object);
     }
     /**
  * 创建失败返回值
@@ -90,7 +90,7 @@ public class RespResult<T> implements Serializable
      */
     public static <T> RespResult<T> fail(String errCode, String errMsg, T object)
     {
-        return new RespResult<T>(errCode, errMsg, object);
+        return new RespResult<>(errCode, errMsg, object);
     }
 
     /**

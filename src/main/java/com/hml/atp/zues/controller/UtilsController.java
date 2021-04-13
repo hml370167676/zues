@@ -39,8 +39,8 @@ public class UtilsController {
     @PostMapping("/getBankCard")
     public RespResult<List<BankCardInfoVO>> getBankCard(@RequestBody @Validated BankCardInfoIFO bankCardInfoIFO) {
         List<BankCardInfoVO> bankCardInfoVOList = bankCardInfo.getBankCardInfo(bankCardInfoIFO);
-        if (bankCardInfoVOList.isEmpty() || bankCardInfoVOList == null) {
-            return RespResult.fail("1111","结果异常！",bankCardInfoVOList);
+        if (bankCardInfoVOList == null || bankCardInfoVOList.isEmpty()) {
+            return RespResult.fail("1111", "结果异常！", bankCardInfoVOList);
         }
         return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoIFO));
     }

@@ -50,19 +50,7 @@ public class BankCardInfoImpl implements BankCardInfo {
      * @param codeLength
      * @return cardNo
      * @author hanminglu
-     * 检验数字算法（Luhn Check Digit Algorithm）
-     * 银行卡号码的校验采用Luhn算法，校验过程大致如下：
-     * <p>
-     * 1. 从右到左给卡号字符串编号，最右边第一位是1，最右边第二位是2，最右边第三位是3….
-     * <p>
-     * 2. 从右向左遍历，对每一位字符t执行第三个步骤，并将每一位的计算结果相加得到一个数s。
-     * <p>
-     * 3. 对每一位的计算规则：如果这一位是--奇数位，则返回t本身，如果是--偶数位，则先将t乘以2得到一个数n，如果n是一位数（小于10），
-     * 直接返回n，否则将n的个位数和十位数相加返回。
-     * <p>
-     * 4. 如果s能够整除10，则此号码有效，否则号码无效。
-     * <p>
-     * 因为最终的结果会对10取余来判断是否能够整除10，所以又叫做模10算法
+
      * <p>
      * 生成n位符合Luhn规则的卡号的算法：
      * <p>
@@ -104,7 +92,26 @@ public class BankCardInfoImpl implements BankCardInfo {
         return cardNo.toString();
     }
 
-
+    /**
+     *功能描述
+     * 检验数字算法（Luhn Check Digit Algorithm）
+     * 银行卡号码的校验采用Luhn算法，校验过程大致如下：
+     * <p>
+     * 1. 从右到左给卡号字符串编号，最右边第一位是1，最右边第二位是2，最右边第三位是3….
+     * <p>
+     * 2. 从右向左遍历，对每一位字符t执行第三个步骤，并将每一位的计算结果相加得到一个数s。
+     * <p>
+     * 3. 对每一位的计算规则：如果这一位是--奇数位，则返回t本身，如果是--偶数位，则先将t乘以2得到一个数n，如果n是一位数（小于10），
+     * 直接返回n，否则将n的个位数和十位数相加返回。
+     * <p>
+     * 4. 如果s能够整除10，则此号码有效，否则号码无效。
+     * <p>
+     * 因为最终的结果会对10取余来判断是否能够整除10，所以又叫做模10算法
+     * @author hanminglu
+     * @date 2021/4/13
+     * @param cardNo
+     * @return java.lang.Boolean
+     */
     public static Boolean luhn(String cardNo) {
 
         int sum = 0;
@@ -128,7 +135,7 @@ public class BankCardInfoImpl implements BankCardInfo {
     public static void main(String[] args) {
         //Java中“ /  ”为除法运算符，并且运算结果遵从向下取整
         //Python中 “ /  ”为浮点数除法，返回浮点结果  “//” 为整数除法，运算结果遵从向下取整
-//        System.out.println(2 / 3);
-        System.out.println(BankCardInfoImpl.luhn("6231267559877835"));
+        System.out.println(2 / 3);
+        System.out.println(BankCardInfoImpl.luhn("6225768744822279"));
     }
 }
