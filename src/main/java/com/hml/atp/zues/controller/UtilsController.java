@@ -1,7 +1,7 @@
 package com.hml.atp.zues.controller;
 
-import com.hml.atp.zues.common.Code;
 import com.hml.atp.zues.common.RespResult;
+import com.hml.atp.zues.common.ResultCode;
 import com.hml.atp.zues.model.ifo.BankCardInfoIFO;
 import com.hml.atp.zues.model.ifo.IdentityIFO;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;
@@ -35,7 +35,7 @@ public class UtilsController {
     public RespResult<List<String>> getIdentityNO(@RequestBody @Validated IdentityIFO identityIFO) {
         List<String> result = identityInfo.getIdentityList(identityIFO);
         if (result == null || result.isEmpty()) {
-            return RespResult.fail(Code.RESULT_NULL_REE.getErrorCode());
+            return RespResult.fail(ResultCode.RESULT_NULL_REE.getErrorCode());
         }
         return RespResult.succeed(identityInfo.getIdentityList(identityIFO));
     }
@@ -45,7 +45,7 @@ public class UtilsController {
     public RespResult<List<BankCardInfoVO>> getBankCard(@RequestBody @Validated BankCardInfoIFO bankCardInfoIFO) {
         List<BankCardInfoVO> bankCardInfoVOList = bankCardInfo.getBankCardInfo(bankCardInfoIFO);
         if (bankCardInfoVOList == null || bankCardInfoVOList.isEmpty()) {
-            return RespResult.fail(Code.RESULT_NULL_REE.getErrorCode());
+            return RespResult.fail(ResultCode.RESULT_NULL_REE.getErrorCode());
         }
         return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoIFO));
     }

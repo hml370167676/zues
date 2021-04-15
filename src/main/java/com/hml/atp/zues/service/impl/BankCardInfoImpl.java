@@ -25,7 +25,6 @@ public class BankCardInfoImpl implements BankCardInfo {
 
     @Override
     public List<BankCardInfoVO> getBankCardInfo(BankCardInfoIFO bankCardInfoIFO) {
-        //TODO 入参为空时的处理
         List<CardBin> cardBinList = cardBinDao.selectByBankCardInfo(bankCardInfoIFO);
         if (cardBinList == null || cardBinList.isEmpty()) {
             return null;

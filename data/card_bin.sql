@@ -1,14 +1,14 @@
-CREATE TABLE `card_bin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `issuing_bank_name` varchar(100) DEFAULT NULL COMMENT '发卡行名称',
-  `org_code` int(11) DEFAULT NULL COMMENT 'Organization code 机构代码',
-  `card_name` varchar(100) DEFAULT NULL COMMENT '卡名',
-  `code_length` int(2) DEFAULT NULL COMMENT '卡号长度',
-  `card_bin_length` int(2) DEFAULT NULL COMMENT '卡BIN长度',
-  `card_bin` varchar(15) DEFAULT NULL COMMENT '卡BIN',
-  `card_type` varchar(10) DEFAULT NULL COMMENT '卡种',
-  PRIMARY KEY (`id`),
-  KEY `id_idx` (`id`) USING BTREE
+CREATE TABLE `card_bin`(
+                           `id`                int(11) NOT NULL AUTO_INCREMENT,
+                           `issuing_bank_name` varchar(100) DEFAULT NULL COMMENT '发卡行名称',
+                           `org_code`          int(11)      DEFAULT NULL COMMENT 'Organization resultCode 机构代码',
+                           `card_name`         varchar(100) DEFAULT NULL COMMENT '卡名',
+                           `code_length`       int(2)       DEFAULT NULL COMMENT '卡号长度',
+                           `card_bin_length`   int(2)       DEFAULT NULL COMMENT '卡BIN长度',
+                           `card_bin`          varchar(15)  DEFAULT NULL COMMENT '卡BIN',
+                           `card_type`         varchar(10)  DEFAULT NULL COMMENT '卡种',
+                           PRIMARY KEY (`id`),
+                           KEY `id_idx` (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 

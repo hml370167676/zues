@@ -61,7 +61,7 @@ public class RespResult<T> implements Serializable {
      * @return RespResult结果对象
      */
     public static <T> RespResult<T> fail(String errCode) {
-        return new RespResult<T>(errCode, Code.getMsgByErrorCode(errCode), null);
+        return new RespResult<T>(errCode, ResultCode.getMsgByErrorCode(errCode), null);
     }
 
     /**
@@ -72,7 +72,7 @@ public class RespResult<T> implements Serializable {
      * @return RespResult结果对象
      */
     public static <T> RespResult<T> fail(String errCode, T object) {
-        return new RespResult<T>(errCode, Code.getMsgByErrorCode(errCode), object);
+        return new RespResult<T>(errCode, ResultCode.getMsgByErrorCode(errCode), object);
     }
 
     /**
