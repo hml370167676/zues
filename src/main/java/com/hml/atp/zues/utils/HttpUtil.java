@@ -1,16 +1,22 @@
 package com.hml.atp.zues.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.hml.atp.zues.common.ReqMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.hml.atp.zues.common.ReqMethod.GET;
 
@@ -45,13 +51,13 @@ public class HttpUtil {
      * @author hanminglu
      * @date 2021/4/15
      */
-    public static <T> String send(List<Header> headers, String url, ReqMethod reqMethod, T params, Boolean ssl) {
+    public static <T> String send(String headers, String url, ReqMethod reqMethod, T params, Boolean ssl) {
 
         switch (reqMethod.getKey()) {
             case 0:
-                return doGet(url, params, ssl);
+                return doGet(headers, url, params, ssl);
             case 1:
-                return doPost(url, params, ssl);
+                return doPost(headers, url, params, ssl);
             default:
                 return null;
         }
@@ -66,37 +72,46 @@ public class HttpUtil {
      * @author hanminglu
      * @date 2021/4/15
      */
-    private static <T> String doGet(String url, T params, Boolean ssl) {
+    private static <T> String doGet(String headers, String url, T params, Boolean ssl) {
+        HttpRequestBase request = new HttpGet();
+        request.setHeaders(headerConverter(headers));
+
         return null;
     }
 
-    private static <T> String doPost(String url, T params, Boolean ssl) {
+    private static <T> String doPost(String headers, String url, T params, Boolean ssl) {
+        HttpRequestBase request = new HttpPost();
+        request.setHeaders(headerConverter(headers));
         return null;
     }
 
     /**
      *
-     * @param text  json字符串
-     * @return List<Header>
-     * @Description 将入参中的json转换为 List<Header> 以便更新请求中的Header信息
+     * @param json  json字符串
+     * @return Header[]
+     * @Description 将入参中的json转换为 Header[] 以便更新请求中的Header信息
      * @author hanminglu
      * @date 2021/4/15
      */
-    public static List<Header> headerConverter(String text) {
-        if (text == null || text.isEmpty()) {
+    public static Header[] headerConverter(String json) {
+        if (json == null || json.isEmpty()) {
             return null;
         }
         List<Header> headers = new ArrayList<>();
-        Map<String, String> kv = JSON.parseObject(text, HashMap.class);
+        Map<String, String> kv = JSON.parseObject(json, HashMap.class);
         for (String key : kv.keySet()) {
             headers.add(new BasicHeader(key, kv.get(key)));
         }
-        return headers;
+        return headers.toArray(new Header[headers.size()]);
     }
 
     public static void main(String[] args) {
         System.out.println(GET.getDesc().equals("get".toUpperCase()));
-//        Header header =
+        Map<String,String> map = new HashMap<>();
+        map.put("ContentType", "application/json");
+        String json = JSON.toJSONString(map);
+
+
 //        HttpPost httpPost = new HttpPost();
 //        httpPost.setHeader();
 
