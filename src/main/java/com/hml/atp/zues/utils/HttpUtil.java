@@ -74,6 +74,26 @@ public class HttpUtil {
         return null;
     }
 
+    /**
+     *
+     * @param text  json字符串
+     * @return List<Header>
+     * @Description 将入参中的json转换为 List<Header> 以便更新请求中的Header信息
+     * @author hanminglu
+     * @date 2021/4/15
+     */
+    public static List<Header> headerConverter(String text) {
+        if (text == null || text.isEmpty()) {
+            return null;
+        }
+        List<Header> headers = new ArrayList<>();
+        Map<String, String> kv = JSON.parseObject(text, HashMap.class);
+        for (String key : kv.keySet()) {
+            headers.add(new BasicHeader(key, kv.get(key)));
+        }
+        return headers;
+    }
+
     public static void main(String[] args) {
         System.out.println(GET.getDesc().equals("get".toUpperCase()));
 //        Header header =
