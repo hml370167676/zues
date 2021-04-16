@@ -1,9 +1,9 @@
 package com.hml.atp.zues.service.impl;
 
 import com.hml.atp.zues.dao.AddressDao;
+import com.hml.atp.zues.model.bo.IdentityBO;
 import com.hml.atp.zues.model.dto.AddressName;
 import com.hml.atp.zues.model.entity.Address;
-import com.hml.atp.zues.model.ifo.IdentityIFO;
 import com.hml.atp.zues.service.IdentityInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -74,13 +74,13 @@ public class IdentityInfoImpl implements IdentityInfo {
 
 
     @Override
-    public List<String> getIdentityList(IdentityIFO identityIFO) {
+    public List<String> getIdentityList(IdentityBO identityBO) {
         List<String> identityList = new ArrayList<>();
         int count = 0;
-        while (count < identityIFO.getSize()) {
-            String addressCode = getAreaCode(identityIFO);
-            String birthday = getBirthday(identityIFO.getBirthday());
-            String sequenceCode = getSequenceCode(identityIFO.getSex());
+        while (count < identityBO.getSize()) {
+            String addressCode = getAreaCode(identityBO);
+            String birthday = getBirthday(identityBO.getBirthday());
+            String sequenceCode = getSequenceCode(identityBO.getSex());
             String identityNo = generateIdentityNo(addressCode, birthday, sequenceCode);
             identityList.add(identityNo);
             count++;
@@ -170,24 +170,24 @@ public class IdentityInfoImpl implements IdentityInfo {
     /**
      * 功能描述 ：
      *
-     * @param identityIFO
+     * @param identityBO
      * @return java.lang.String
      * @description 获取行政区代码
      * @author hanminglu
      * @date 2021/4/12
      */
-    public String getAreaCode(IdentityIFO identityIFO) {
+    public String getAreaCode(IdentityBO identityBO) {
 
-        if (identityIFO == null || identityIFO.getProvince().isEmpty() || identityIFO.getProvince() == null ||
-                identityIFO.getCity().isEmpty() || identityIFO.getCity() == null || identityIFO.getDistrict().isEmpty() |
-                identityIFO.getDistrict() == null) {
+        if (identityBO == null || identityBO.getProvince().isEmpty() || identityBO.getProvince() == null ||
+                identityBO.getCity().isEmpty() || identityBO.getCity() == null || identityBO.getDistrict().isEmpty() |
+                identityBO.getDistrict() == null) {
             log.info("没有省市区信息，开始随机获取省市区代码");
             return randomAddress().getDistrictCode().toString();
         } else {
             AddressName addressName = new AddressName();
-            addressName.setProvinceName(identityIFO.getProvince().trim());
-            addressName.setCityName(identityIFO.getCity().trim());
-            addressName.setDistrictName(identityIFO.getDistrict().trim());
+            addressName.setProvinceName(identityBO.getProvince().trim());
+            addressName.setCityName(identityBO.getCity().trim());
+            addressName.setDistrictName(identityBO.getDistrict().trim());
             Address address = addressDao.selectByAddressName(addressName);
             return address.getDistrictCode().toString();
         }

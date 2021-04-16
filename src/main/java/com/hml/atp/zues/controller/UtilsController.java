@@ -2,8 +2,8 @@ package com.hml.atp.zues.controller;
 
 import com.hml.atp.zues.common.RespResult;
 import com.hml.atp.zues.common.ResultCode;
-import com.hml.atp.zues.model.ifo.BankCardInfoIFO;
-import com.hml.atp.zues.model.ifo.IdentityIFO;
+import com.hml.atp.zues.model.bo.BankCardInfoBO;
+import com.hml.atp.zues.model.bo.IdentityBO;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;
 import com.hml.atp.zues.service.BankCardInfo;
 import com.hml.atp.zues.service.IdentityInfo;
@@ -32,21 +32,21 @@ public class UtilsController {
 
     @ApiOperation(value = "生成身份证号")
     @PostMapping("/getIdentityNO")
-    public RespResult<List<String>> getIdentityNO(@RequestBody @Validated IdentityIFO identityIFO) {
-        List<String> result = identityInfo.getIdentityList(identityIFO);
+    public RespResult<List<String>> getIdentityNO(@RequestBody @Validated IdentityBO identityBO) {
+        List<String> result = identityInfo.getIdentityList(identityBO);
         if (result == null || result.isEmpty()) {
             return RespResult.fail(ResultCode.RESULT_NULL_REE.getErrorCode());
         }
-        return RespResult.succeed(identityInfo.getIdentityList(identityIFO));
+        return RespResult.succeed(identityInfo.getIdentityList(identityBO));
     }
 
     @ApiOperation(value = "生成银行卡号")
     @PostMapping("/getBankCard")
-    public RespResult<List<BankCardInfoVO>> getBankCard(@RequestBody @Validated BankCardInfoIFO bankCardInfoIFO) {
-        List<BankCardInfoVO> bankCardInfoVOList = bankCardInfo.getBankCardInfo(bankCardInfoIFO);
+    public RespResult<List<BankCardInfoVO>> getBankCard(@RequestBody @Validated BankCardInfoBO bankCardInfoBO) {
+        List<BankCardInfoVO> bankCardInfoVOList = bankCardInfo.getBankCardInfo(bankCardInfoBO);
         if (bankCardInfoVOList == null || bankCardInfoVOList.isEmpty()) {
             return RespResult.fail(ResultCode.RESULT_NULL_REE.getErrorCode());
         }
-        return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoIFO));
+        return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoBO));
     }
 }

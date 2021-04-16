@@ -1,24 +1,30 @@
 package com.hml.atp.zues.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.hml.atp.zues.common.ReqMethod;
+import com.hml.atp.zues.model.bo.RequestBO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.hml.atp.zues.common.ReqMethod.GET;
 
 /**
  * @author hanminglu
@@ -26,68 +32,148 @@ import static com.hml.atp.zues.common.ReqMethod.GET;
 @Slf4j
 public class HttpUtil {
 
-    private static final CloseableHttpClient HTTP_CLIENT;
+//    private static final CloseableHttpClient HTTP_CLIENT;
 
     public static final String CHARSET = "UTF-8";
 
-    // 采用静态代码块，初始化超时时间配置，再根据配置生成默认httpClient对象
+    // 采用静态代码块,初始化超时时间配置,再根据配置生成默认httpClient对象
     static {
         RequestConfig config = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(15000).build();
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8"));
-        HTTP_CLIENT = HttpClientBuilder.create().setDefaultRequestConfig(config).setDefaultHeaders(headers).build();
-//        httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+//        HTTP_CLIENT = HttpClientBuilder.create().setDefaultRequestConfig(config).setDefaultHeaders(headers).build();
+
     }
 
 
     /**
-     * @param headers
-     * @param url
-     * @param reqMethod
-     * @param params    请求参数
-     * @param ssl
+     * @param requestBO 请求信息
      * @return java.lang.String
      * @Description 功能描述
      * @author hanminglu
      * @date 2021/4/15
      */
-    public static <T> String send(String headers, String url, ReqMethod reqMethod, T params, Boolean ssl) {
-
-        switch (reqMethod.getKey()) {
+    public static <T> String send(RequestBO requestBO) throws URISyntaxException, IOException {
+        //重组URL 将protocol、baseURL、path、query组装起来 为URI
+        if (requestBO.getQueryArguments() == null || requestBO.getQueryArguments().isEmpty()) {
+            URI uri = new URIBuilder()
+                    .setScheme(null == requestBO.getReqProtocol() ? "http" : requestBO.getReqProtocol().getDesc())
+                    .setHost(requestBO.getBaseUrl())
+                    .setPath(requestBO.getPath())
+                    .build();
+        }
+        URI uri = new URIBuilder()
+                .setScheme(null == requestBO.getReqProtocol() ? "http" : requestBO.getReqProtocol().getDesc())
+                .setHost(requestBO.getBaseUrl())
+                .setPath(requestBO.getPath())
+                .setParameters(queryParamsConverter(requestBO.getQueryArguments()))
+                .build();
+        switch (requestBO.getReqMethod().getKey()) {
             case 0:
-                return doGet(headers, url, params, ssl);
+                return doGet(requestBO, uri);
             case 1:
-                return doPost(headers, url, params, ssl);
+                return doPost(requestBO, uri);
+            case 2:
+                return doHead(requestBO, uri);
+            case 3:
+                return doPut(requestBO, uri);
+            case 4:
+                return doDelete(requestBO, uri);
+            case 5:
+                return doTrace(requestBO, uri);
+            case 6:
+                return doPatch(requestBO, uri);
+            case 7:
+                return doOptions(requestBO, uri);
             default:
-                return null;
+                throw new IllegalStateException("Unexpected value: " + requestBO.getReqMethod().getKey());
         }
     }
 
     /**
-     * @param url
-     * @param params
-     * @param ssl
+     * @param requestBO 请求信息
      * @return java.lang.String
      * @Description 功能描述
      * @author hanminglu
      * @date 2021/4/15
      */
-    private static <T> String doGet(String headers, String url, T params, Boolean ssl) {
+    private static String doGet(RequestBO requestBO, URI uri) {
         HttpRequestBase request = new HttpGet();
-        request.setHeaders(headerConverter(headers));
+        request.setHeaders(headerConverter("asd"));
 
         return null;
     }
 
-    private static <T> String doPost(String headers, String url, T params, Boolean ssl) {
-        HttpRequestBase request = new HttpPost();
-        request.setHeaders(headerConverter(headers));
+    private static String doPost(RequestBO requestBO, URI uri) throws IOException {
+        HttpPost httpPost = new HttpPost(uri);
+        httpPost.setHeaders(headerConverter(requestBO.getHeader()));
+        StringEntity reqEntity = new StringEntity(requestBO.getRequestBody(), ContentType.APPLICATION_JSON);
+        httpPost.setEntity(reqEntity);
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+            try {
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    long len = entity.getContentLength();
+                    if (len != -1 && len < 2048) {
+                        System.out.println(EntityUtils.toString(entity));
+                    } else {
+                        // Stream content out
+                    }
+                }
+            } finally {
+                response.close();
+            }
+        }
+
+
+        return null;
+    }
+
+
+    private static String doHead(RequestBO requestBO, URI uri) {
+        HttpRequestBase request = new HttpHead();
+        request.setHeaders(headerConverter("asd"));
+        return null;
+    }
+
+
+    private static String doPut(RequestBO requestBO, URI uri) {
+        HttpRequestBase request = new HttpPut();
+        request.setHeaders(headerConverter("asd"));
+        return null;
+    }
+
+
+    private static String doDelete(RequestBO requestBO, URI uri) {
+        HttpRequestBase request = new HttpDelete();
+        request.setHeaders(headerConverter("asd"));
+        return null;
+    }
+
+
+    private static String doTrace(RequestBO requestBO, URI uri) {
+        HttpRequestBase request = new HttpTrace();
+        request.setHeaders(headerConverter("asd"));
+        return null;
+    }
+
+
+    private static String doPatch(RequestBO requestBO, URI uri) {
+        HttpRequestBase request = new HttpPatch();
+        request.setHeaders(headerConverter("asd"));
+        return null;
+    }
+
+
+    private static String doOptions(RequestBO requestBO, URI uri) {
+        HttpRequestBase request = new HttpOptions();
+        request.setHeaders(headerConverter("asd"));
         return null;
     }
 
     /**
-     *
-     * @param json  json字符串
+     * @param json json字符串
      * @return Header[]
      * @Description 将入参中的json转换为 Header[] 以便更新请求中的Header信息
      * @author hanminglu
@@ -102,18 +188,41 @@ public class HttpUtil {
         for (String key : kv.keySet()) {
             headers.add(new BasicHeader(key, kv.get(key)));
         }
-        return headers.toArray(new Header[headers.size()]);
+        return headers.toArray(new Header[0]);
+    }
+
+    public static List<NameValuePair> queryParamsConverter(String json) {
+        if (json == null || json.isEmpty()) {
+            return null;
+        }
+        List<NameValuePair> parameters = new ArrayList<>();
+        Map<String, String> kv = JSON.parseObject(json, HashMap.class);
+        for (String key : kv.keySet()) {
+            parameters.add(new BasicNameValuePair(key, String.valueOf(kv.get(key))));
+        }
+        return parameters;
+    }
+
+    private static void checkRequest(RequestBO requestBO, URI uri) {
+
     }
 
     public static void main(String[] args) {
-        System.out.println(GET.getDesc().equals("get".toUpperCase()));
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("ContentType", "application/json");
         String json = JSON.toJSONString(map);
+        JSON.toJSON(map);
+        System.out.println(json);
+        System.out.println(queryParamsConverter(json));
+//        System.out.println(JSON.parseArray(test, NameValuePair.class));
+//        HttpClients.custom().setDefaultHeaders().setDefaultRequestConfig();
+//        SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(sslcontext,
+//                SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
 
 
 //        HttpPost httpPost = new HttpPost();
 //        httpPost.setHeader();
+
 
     }
 }

@@ -1,4 +1,4 @@
-package com.hml.atp.zues.model.ifo;
+package com.hml.atp.zues.model.bo;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
@@ -8,7 +8,7 @@ import lombok.Data;
  * @author hanminglu
  */
 @Data
-public class IdentityIFO {
+public class IdentityBO {
 
     @ApiModelProperty(value = "省", example = "北京市")
     private String province;

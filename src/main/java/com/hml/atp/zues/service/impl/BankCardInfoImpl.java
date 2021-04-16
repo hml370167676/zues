@@ -1,8 +1,8 @@
 package com.hml.atp.zues.service.impl;
 
 import com.hml.atp.zues.dao.CardBinDao;
+import com.hml.atp.zues.model.bo.BankCardInfoBO;
 import com.hml.atp.zues.model.entity.CardBin;
-import com.hml.atp.zues.model.ifo.BankCardInfoIFO;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;
 import com.hml.atp.zues.service.BankCardInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ public class BankCardInfoImpl implements BankCardInfo {
     private CardBinDao cardBinDao;
 
     @Override
-    public List<BankCardInfoVO> getBankCardInfo(BankCardInfoIFO bankCardInfoIFO) {
-        List<CardBin> cardBinList = cardBinDao.selectByBankCardInfo(bankCardInfoIFO);
+    public List<BankCardInfoVO> getBankCardInfo(BankCardInfoBO bankCardInfoBO) {
+        List<CardBin> cardBinList = cardBinDao.selectByBankCardInfo(bankCardInfoBO);
         if (cardBinList == null || cardBinList.isEmpty()) {
             return null;
         }

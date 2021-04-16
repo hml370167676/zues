@@ -1,4 +1,4 @@
-package com.hml.atp.zues.model.ifo;
+package com.hml.atp.zues.model.bo;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author hanminglu
  */
 @Data
-public class BankCardInfoIFO implements Serializable {
+public class BankCardInfoBO implements Serializable {
 
     /**
      * 发卡行名称
