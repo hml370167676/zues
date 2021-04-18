@@ -1,12 +1,11 @@
 package com.hml.atp.zues.model.bo;
 
-import com.hml.atp.zues.common.ReqMethod;
-import com.hml.atp.zues.common.ReqProtocol;
+import com.hml.atp.zues.common.enums.ReqMethod;
+import com.hml.atp.zues.common.enums.ReqProtocol;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.http.entity.FileEntity;
 
 import java.io.Serializable;
 
@@ -46,18 +45,28 @@ public class RequestBO implements Serializable {
     private String header;
 
     /**
-     * 请求体JSON
+     * 请求参数JSON--parameterType 为path
      */
-    private String requestBody;
+    private String pathParameter;
 
     /**
-     * 请参数JSON
+     * 请求参数JSON--parameterType 为query
      */
-    private String queryArguments;
+    private String queryParameter;
 
     /**
-     * 文件体
+     * 请求体JSON--parameterType 为body
      */
-    private FileEntity fileEntity;
+    private String bodyParameter;
+
+    /**
+     * 请求参数JSON--parameterType 为formdata--文件请求
+     */
+    private String filesName;
+
+    /**
+     * 请求参数JSON--parameterType 为formdata--表单请求
+     */
+    private String formParams;
 
 }

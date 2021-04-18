@@ -1,7 +1,7 @@
 package com.hml.atp.zues.controller;
 
 import com.hml.atp.zues.common.RespResult;
-import com.hml.atp.zues.common.ResultCode;
+import com.hml.atp.zues.common.enums.ResultCode;
 import com.hml.atp.zues.model.bo.BankCardInfoBO;
 import com.hml.atp.zues.model.bo.IdentityBO;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;

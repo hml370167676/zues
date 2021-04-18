@@ -1,4 +1,4 @@
-package com.hml.atp.zues.common;
+package com.hml.atp.zues.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -62,7 +62,7 @@ public enum ReqMethod {
     private String desc;
 
 
-    public static ReqMethod getByKey(Integer key) {
+    public static ReqMethod getByKey(int key) {
         for (ReqMethod e : values()) {
             if (e.getKey() == key) {
                 return e;

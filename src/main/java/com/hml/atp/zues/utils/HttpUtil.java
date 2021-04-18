@@ -11,16 +11,21 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
+import java.text.MessageFormat.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +37,7 @@ import java.util.Map;
 @Slf4j
 public class HttpUtil {
 
-//    private static final CloseableHttpClient HTTP_CLIENT;
+    private static final CloseableHttpClient HTTP_CLIENT;
 
     public static final String CHARSET = "UTF-8";
 
@@ -41,7 +46,11 @@ public class HttpUtil {
         RequestConfig config = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(15000).build();
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8"));
-//        HTTP_CLIENT = HttpClientBuilder.create().setDefaultRequestConfig(config).setDefaultHeaders(headers).build();
+        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+        cm.setMaxTotal(200);
+        cm.setDefaultMaxPerRoute(20);
+        HTTP_CLIENT = HttpClients.custom().setDefaultRequestConfig(config).setDefaultHeaders(headers)
+                .setConnectionManager(cm).build();
 
     }
 
@@ -55,7 +64,7 @@ public class HttpUtil {
      */
     public static <T> String send(RequestBO requestBO) throws URISyntaxException, IOException {
         //重组URL 将protocol、baseURL、path、query组装起来 为URI
-        if (requestBO.getQueryArguments() == null || requestBO.getQueryArguments().isEmpty()) {
+        if (requestBO.getQueryParameter() == null || requestBO.getQueryParameter().isEmpty()) {
             URI uri = new URIBuilder()
                     .setScheme(null == requestBO.getReqProtocol() ? "http" : requestBO.getReqProtocol().getDesc())
                     .setHost(requestBO.getBaseUrl())
@@ -66,7 +75,7 @@ public class HttpUtil {
                 .setScheme(null == requestBO.getReqProtocol() ? "http" : requestBO.getReqProtocol().getDesc())
                 .setHost(requestBO.getBaseUrl())
                 .setPath(requestBO.getPath())
-                .setParameters(queryParamsConverter(requestBO.getQueryArguments()))
+                .setParameters(queryParamsConverter(requestBO.getQueryParameter()))
                 .build();
         switch (requestBO.getReqMethod().getKey()) {
             case 0:
@@ -106,23 +115,35 @@ public class HttpUtil {
 
     private static String doPost(RequestBO requestBO, URI uri) throws IOException {
         HttpPost httpPost = new HttpPost(uri);
-        httpPost.setHeaders(headerConverter(requestBO.getHeader()));
-        StringEntity reqEntity = new StringEntity(requestBO.getRequestBody(), ContentType.APPLICATION_JSON);
-        httpPost.setEntity(reqEntity);
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+        if (requestBO.getHeader() != null || !requestBO.getHeader().isEmpty()) {
+            httpPost.setHeaders(headerConverter(requestBO.getHeader()));
+        }
+        if (requestBO.getBodyParameter() != null || !requestBO.getBodyParameter().isEmpty()) {
+            StringEntity reqEntity = new StringEntity(requestBO.getBodyParameter(), ContentType.APPLICATION_JSON);
+            httpPost.setEntity(reqEntity);
+        }
+//        if (requestBO.getFileName() != null || !requestBO.getFileName().isEmpty()) {
+//            //TODO 处理file和form表单类型的数据
+//            File file = new File(requestBO.getFileName());
+//            FileEntity fileEntity = new FileEntity(file, ContentType.MULTIPART_FORM_DATA);
+//        }
+
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpResponse response = HTTP_CLIENT.execute(httpPost)) {
             try {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     long len = entity.getContentLength();
                     if (len != -1 && len < 2048) {
                         System.out.println(EntityUtils.toString(entity));
+                        return EntityUtils.toString(entity);
                     } else {
                         // Stream content out
                     }
                 }
             } finally {
                 response.close();
+                HTTP_CLIENT.close();
             }
         }
 
@@ -208,12 +229,12 @@ public class HttpUtil {
     }
 
     public static void main(String[] args) {
-        Map<String, String> map = new HashMap<>();
-        map.put("ContentType", "application/json");
-        String json = JSON.toJSONString(map);
-        JSON.toJSON(map);
-        System.out.println(json);
-        System.out.println(queryParamsConverter(json));
+//        Map<String, String> map = new HashMap<>();
+//        map.put("ContentType", "application/json");
+//        String json = JSON.toJSONString(map);
+//        JSON.toJSON(map);
+//        System.out.println(json);
+//        System.out.println(queryParamsConverter(json));
 //        System.out.println(JSON.parseArray(test, NameValuePair.class));
 //        HttpClients.custom().setDefaultHeaders().setDefaultRequestConfig();
 //        SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(sslcontext,
@@ -222,6 +243,10 @@ public class HttpUtil {
 
 //        HttpPost httpPost = new HttpPost();
 //        httpPost.setHeader();
+        Map data = new HashMap<>();
+        data.put("id","123123");
+        System.out.println(StringFormatUtil.format("garage/user/view/filter/{id}",data));
+
 
 
     }

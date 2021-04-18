@@ -1,5 +1,6 @@
 package com.hml.atp.zues.common;
 
+import com.hml.atp.zues.common.enums.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

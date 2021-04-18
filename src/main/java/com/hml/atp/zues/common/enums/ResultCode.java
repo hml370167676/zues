@@ -1,4 +1,4 @@
-package com.hml.atp.zues.common;
+package com.hml.atp.zues.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

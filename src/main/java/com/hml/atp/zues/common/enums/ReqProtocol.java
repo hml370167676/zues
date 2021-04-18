@@ -1,4 +1,4 @@
-package com.hml.atp.zues.common;
+package com.hml.atp.zues.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public enum ReqProtocol {
 
     private String desc;
 
-    private static ReqProtocol getByKey(Integer key) {
+    private static ReqProtocol getByKey(int key) {
         for (ReqProtocol e : values()) {
             if (e.getKey() == key) {
                 return e;

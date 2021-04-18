@@ -1,4 +1,4 @@
-package com.hml.atp.zues.enums;
+package com.hml.atp.zues.common.enums;
 
 /**
  * @author hanminglu
