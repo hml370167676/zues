@@ -11,7 +11,6 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -20,12 +19,9 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.MessageFormat;
-import java.text.MessageFormat.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -135,10 +131,10 @@ public class HttpUtil {
                 if (entity != null) {
                     long len = entity.getContentLength();
                     if (len != -1 && len < 2048) {
-                        System.out.println(EntityUtils.toString(entity));
                         return EntityUtils.toString(entity);
                     } else {
                         // Stream content out
+                        return EntityUtils.toString(entity);
                     }
                 }
             } finally {
@@ -243,10 +239,9 @@ public class HttpUtil {
 
 //        HttpPost httpPost = new HttpPost();
 //        httpPost.setHeader();
-        Map data = new HashMap<>();
-        data.put("id","123123");
-        System.out.println(StringFormatUtil.format("garage/user/view/filter/{id}",data));
-
+//        Map data = new HashMap<>();
+//        data.put("id","123123");
+//        System.out.println(StringFormatUtil.format("garage/user/view/filter/{id}",data));
 
 
     }

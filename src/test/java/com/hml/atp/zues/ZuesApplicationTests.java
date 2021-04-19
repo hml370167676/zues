@@ -33,12 +33,12 @@ class ZuesApplicationTests {
         HttpUtil httpUtil = new HttpUtil();
         RequestBO request = RequestBO.builder()
                 .baseUrl("test1-api.dada365.com")
-                .path("garage/user/view/filter")
-                .header("{'Content-Type':'application/json;charset=utf-8','token':'e585a0f41225350390abe19510ee4882bc3c5ba1'}")
+                .path("garage/purchase/batch/all/page/v2")
+                .header("{\"Content-Type\":\"application/json;charset=utf-8\",\"token\":\"e585a0f41225350390abe19510ee4882bc3c5ba1\"}")
                 .reqMethod(ReqMethod.POST)
                 .reqProtocol(ReqProtocol.HTTP)
-                .bodyParameter("{}")
-                .queryParameter("{'pageNum':1,'pageSize':10,'companyId':12891}")
+                .bodyParameter("{\"status\":4}")
+                .queryParameter("{\"pageNum\":1,\"pageSize\":100}")
                 .build();
         httpUtil.send(request);
 
@@ -50,12 +50,12 @@ class ZuesApplicationTests {
         RequestBO request = RequestBO.builder()
                 .baseUrl("test1-api.dada365.com")
                 .path("garage/dfs/imgs/upload")
-                .header("{'Content-Type':'multipart/form-data','token':'e585a0f41225350390abe19510ee4882bc3c5ba1'}")
+                .header("{\"Content-Type\":\"multipart/form-data\",\"token\":\"e585a0f41225350390abe19510ee4882bc3c5ba1\"}")
                 .reqMethod(ReqMethod.POST)
                 .reqProtocol(ReqProtocol.HTTP)
                 .bodyParameter("{}")
                 .queryParameter("{}")
-                .filesName("{'img':'d:/20210417012401.png'}")
+                .filesName("{\"img\":\"d:/20210417012401.png\"}")
                 .build();
         httpUtil.send(request);
 
