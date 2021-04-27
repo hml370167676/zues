@@ -6,7 +6,6 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +13,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 
+import javax.annotation.Resource;
+
 @Configuration
-@ConditionalOnProperty(name = "spring.rabbitmq.addresses", havingValue = "")
+@ConditionalOnProperty(name = "spring.rabbitmq.addresses")
 public class MQConfig implements RabbitListenerConfigurer {
 
     public static final String EXCHANGE_DELAY = "dgmq-exchange-delay";
@@ -122,7 +123,7 @@ public class MQConfig implements RabbitListenerConfigurer {
      */
     public static final int PAYORDER_CLOSE_SECOND = 300;
 
-    @Autowired
+    @Resource
     private ConnectionFactory connectionFactory;
 
     @Bean
