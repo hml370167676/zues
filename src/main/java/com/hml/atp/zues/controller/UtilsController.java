@@ -49,4 +49,24 @@ public class UtilsController {
         }
         return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoBO));
     }
+
+    @ApiOperation(value = "汽修钱包充值（使用大大币提现接口）")
+    @PostMapping("/addBalance")
+    public RespResult<List<BankCardInfoVO>> addBalance(@RequestBody @Validated BankCardInfoBO bankCardInfoBO) {
+        List<BankCardInfoVO> bankCardInfoVOList = bankCardInfo.getBankCardInfo(bankCardInfoBO);
+        if (bankCardInfoVOList == null || bankCardInfoVOList.isEmpty()) {
+            return RespResult.fail(ResultCode.RESULT_NULL_REE.getErrorCode());
+        }
+        return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoBO));
+    }
+
+    /**
+     * POST https://{{baseurl}}/wealth/garage/ddcoin/exchange
+     * Content-Type: application/json
+     * token:{{token}}
+     *
+     * {
+     *   "exchangeDdcoin": 1000000
+     * }
+     */
 }

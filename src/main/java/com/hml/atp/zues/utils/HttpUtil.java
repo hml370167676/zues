@@ -58,7 +58,7 @@ public class HttpUtil {
      * @author hanminglu
      * @date 2021/4/15
      */
-    public static <T> String send(RequestBO requestBO) throws URISyntaxException, IOException {
+    public static String send(RequestBO requestBO) throws URISyntaxException, IOException {
         //重组URL 将protocol、baseURL、path、query组装起来 为URI
         if (requestBO.getQueryParameter() == null || requestBO.getQueryParameter().isEmpty()) {
             URI uri = new URIBuilder()
