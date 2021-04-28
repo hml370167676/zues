@@ -61,7 +61,7 @@ public class UtilsController {
     }
 
     /**
-     * POST https://{{baseurl}}/wealth/garage/ddcoin/exchange
+     * aPOST https://{{baseurl}}/wealth/garage/ddcoin/exchange
      * Content-Type: application/json
      * token:{{token}}
      *
