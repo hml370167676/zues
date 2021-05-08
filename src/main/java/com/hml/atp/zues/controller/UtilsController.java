@@ -4,9 +4,11 @@ import com.hml.atp.zues.common.RespResult;
 import com.hml.atp.zues.common.enums.ResultCode;
 import com.hml.atp.zues.model.bo.BankCardInfoBO;
 import com.hml.atp.zues.model.bo.IdentityBO;
+import com.hml.atp.zues.model.bo.IdentityCardInfoBO;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;
 import com.hml.atp.zues.service.BankCardInfo;
 import com.hml.atp.zues.service.IdentityInfo;
+import com.hml.atp.zues.utils.idcard.CardUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +32,9 @@ public class UtilsController {
     @Resource
     public BankCardInfo bankCardInfo;
 
+    @Resource
+    public CardUtil cardUtil;
+
     @ApiOperation(value = "生成身份证号")
     @PostMapping("/getIdentityNO")
     public RespResult<List<String>> getIdentityNO(@RequestBody @Validated IdentityBO identityBO) {
@@ -48,6 +53,13 @@ public class UtilsController {
             return RespResult.fail(ResultCode.RESULT_NULL_REE.getErrorCode());
         }
         return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoBO));
+    }
+
+    @ApiOperation(value = "生成身份证图片")
+    @PostMapping("/getCardImage")
+    public RespResult<String> getCardImage(@RequestBody @Validated IdentityCardInfoBO identityCardInfoBO) {
+        cardUtil.generateIdcodeZ(identityCardInfoBO);
+        return RespResult.succeed("");
     }
 
     @ApiOperation(value = "汽修钱包充值（使用大大币提现接口）")

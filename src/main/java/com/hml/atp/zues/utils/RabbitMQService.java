@@ -1,6 +1,6 @@
 package com.hml.atp.zues.utils;
 
-import com.hml.atp.zues.config.MQConfig;
+import com.hml.atp.zues.config.MQSenderConfig;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
@@ -15,7 +15,7 @@ public class RabbitMQService {
     private RabbitTemplate rabbitTemplate;
 
     public void sendDelay(String queue, Object t, Integer sec) {
-        rabbitTemplate.convertAndSend(MQConfig.EXCHANGE_DELAY, queue, t, new MessagePostProcessor() {
+        rabbitTemplate.convertAndSend(MQSenderConfig.EXCHANGE_DELAY, queue, t, new MessagePostProcessor() {
             @Override
             public Message postProcessMessage(Message message) throws AmqpException {
                 message.getMessageProperties().setDelay(sec * 1000);

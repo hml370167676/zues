@@ -1,5 +1,8 @@
-package com.hml.atp.zues.utils;
+package com.hml.atp.zues.utils.idcard;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -7,14 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Set;
 
 
 /**
@@ -25,16 +22,30 @@ import java.util.Set;
  * 修改人：
  * 修改时间：2018-8-2
  * 修改备注：
+ *
+ * @author hanminglu
  */
 @SuppressWarnings("unchecked")
+@Component
+@Slf4j
 public class CanvasViewUtils {
-    /**
-     * 图片素材
-     */
-    private final static Map materials = null;
 
-    //色差范围0~255
-    public static int color_range = 210;
+
+    private static String IDCardFace;
+
+    private static String IDCardBack;
+
+
+    @Value("${materials.IDCard.face}")
+    public void setIDCardFace(String face) {
+        IDCardFace = face;
+    }
+
+    @Value("${materials.IDCard.back}")
+    public void setIDCardBack(String back) {
+        IDCardBack = back;
+    }
+
 
     /**
      * 合成身份证背面
@@ -45,11 +56,12 @@ public class CanvasViewUtils {
      * @author 爱踢攻城狮
      * @date 2018-8-2
      */
-    public static String loadIDCardBacked(Map infos) throws Exception {
+    public static void loadIDCardBacked(Map infos) throws Exception {
         //获取素材
-        Image img = ImageIO.read(BASE64ToStream(getIDCardBacked()));
-        int imgWidth = img.getWidth(null);
-        int imgHeight = img.getHeight(null);
+        log.info(IDCardBack);
+        BufferedImage img = ImageIO.read(new FileInputStream(IDCardBack));
+        int imgWidth = img.getWidth();
+        int imgHeight = img.getHeight();
         //获取画笔
         BufferedImage bufImg = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = bufImg.createGraphics();
@@ -60,14 +72,11 @@ public class CanvasViewUtils {
         g.setColor(Color.BLACK);
 
         g.drawString(String.valueOf(infos.get("pPolice")), 200, 232);
-        g.drawString(String.valueOf(infos.get("pEffDate")) + "-" + String.valueOf(infos.get("pExpDate")), 200, 272);
+        g.drawString(infos.get("pEffDate") + "-" + String.valueOf(infos.get("pExpDate")), 200, 272);
         g.dispose();
         //输出图片
-        ByteArrayOutputStream outImgStream = new ByteArrayOutputStream();
-        ImageIO.write(bufImg, "jpg", outImgStream);
-        outImgStream.flush();
-        outImgStream.close();
-        return StreamToBASE64(outImgStream);
+        File outPutFile = new File("123.jpg");
+        ImageIO.write(bufImg, "jpg", outPutFile);
     }
 
     /**
@@ -90,7 +99,7 @@ public class CanvasViewUtils {
         BufferedImage cardImg = ImageIO.read(BASE64ToStream(pCardImg));
         cardImg = clearBackGroud(cardImg);
         //获取素材
-        Image img = ImageIO.read(BASE64ToStream(getIDCardFaced()));
+        BufferedImage img = ImageIO.read(BASE64ToStream(IDCardFace));
         int imgWidth = img.getWidth(null);
         int imgHeight = img.getHeight(null);
         //获取画笔
@@ -119,7 +128,6 @@ public class CanvasViewUtils {
         }
         //身份证号
         g.setFont(new Font("华文细黑", Font.BOLD, 17));
-        //        g.drawString(pCardNo, 168, 271);
         drawString(pCardNo, 168, 271, 1.4, g);
         //头像
         g.drawImage(cardImg, 280, 43, 155, 191, null);
@@ -144,15 +152,14 @@ public class CanvasViewUtils {
      * @date 2018-8-3
      */
     public static void drawString(String str, int x, int y, double rate, Graphics2D g) {
-        String tempStr = new String();
+        String tempStr;
         int orgStringWight = g.getFontMetrics().stringWidth(str);
         int orgStringLength = str.length();
         int tempx = x;
-        int tempy = y;
         while (str.length() > 0) {
             tempStr = str.substring(0, 1);
             str = str.substring(1, str.length());
-            g.drawString(tempStr, tempx, tempy);
+            g.drawString(tempStr, tempx, y);
             tempx = (int) (tempx + (double) orgStringWight / (double) orgStringLength * rate);
         }
     }
@@ -218,42 +225,11 @@ public class CanvasViewUtils {
         // 获取color(RGB)中B位
         int blue = (color & 0x0000ff);
         // 通过RGB三分量来判断当前颜色是否在指定的颜色区间内
+        //色差范围0~255
+        int color_range = 210;
         return red >= color_range && green >= color_range && blue >= color_range;
     }
 
-    /**
-     * 获取身份证正面素材
-     *
-     * @return 素材的base64编码
-     * @author 爱踢攻城狮
-     * @date 2018-8-2
-     */
-    public static String getIDCardFaced() {
-        try {
-            return String.valueOf(((Map) Objects.requireNonNull(materials).get("IDCard")).get("face"));
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    /**
-     * 获取身份证背面素材
-     *
-     * @return 素材的base64编码
-     * @author 爱踢攻城狮
-     * @date 2018-8-2
-     */
-    public static String getIDCardBacked() {
-        try {
-            Set<Entry> set = materials.entrySet();
-            for (Entry entry : set) {
-                entry.getValue();
-            }
-            return String.valueOf(((Map) Objects.requireNonNull(materials).get("IDCard")).get("back"));
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     /**
      * base64转化为输入流
@@ -280,4 +256,9 @@ public class CanvasViewUtils {
     public static String StreamToBASE64(ByteArrayOutputStream stream) {
         return new BASE64Encoder().encode(stream.toByteArray());
     }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        System.out.println(new FileInputStream("src/main/resources/static/images/idf.jpg"));
+    }
 }
+

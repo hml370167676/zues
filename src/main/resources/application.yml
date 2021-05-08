@@ -60,3 +60,25 @@ logging:
   #    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} >>> [%thread] >>> %-5level >>> %logger{50} >>> %msg%n'
   level:
     com.hml.ztp.zues: debug
+
+materials:
+  IDCard:
+    face: src/main/resources/static/images/
+    back: src/main/resources/static/images/
+
+sftp:
+  client:
+    protocol: sftp
+    host: 192.168.4.15
+    port: 22
+    username: root
+    password: 123_dow_456
+    root: /home/tester/
+    sessionConnectTimeout: 15000
+    channelConnectedTimeout: 15000
+    sessionStrictHostKeyChecking: no
+    passphrase: yes
+
+imagePath:
+  baseDir: src/main/resources/static/images/
+  targetDir: images/
