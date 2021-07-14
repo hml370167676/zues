@@ -8,6 +8,7 @@ import com.hml.atp.zues.model.vo.BankCardInfoVO;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.slf4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -15,6 +16,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +47,16 @@ public class BankCardInfoImplTest extends CaseBase {
 
         List<BankCardInfoVO> result = bankCardInfoImpl.getBankCardInfo(new BankCardInfoBO());
         Assert.assertEquals(result, Arrays.<BankCardInfoVO>asList(new BankCardInfoVO()));
+    }
+
+    @Test
+    public void generateCardNoTest() throws InvocationTargetException, IllegalAccessException {
+        Method generateCardNo = PowerMockito.method(BankCardInfoImpl.class, "generateCardNo", String.class, Integer.class);
+        String cardNo = String.valueOf(generateCardNo.invoke(bankCardInfoImpl, "123", 10));
+        Assert.assertEquals(10,cardNo.length());
+//        verify(cardNo).matches("123");
+        Assert.assertTrue(cardNo.startsWith("123"));
+
     }
 
 }
