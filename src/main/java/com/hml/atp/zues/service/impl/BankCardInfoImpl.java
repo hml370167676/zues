@@ -61,7 +61,7 @@ public class BankCardInfoImpl implements BankCardInfo {
      * <p>
      * 4. x+y做字符串拼接运算，得到最终的n位符合Luhn规则的字符串。
      */
-    public String generateCardNo(String cardBin, Integer codeLength) {
+    private String generateCardNo(String cardBin, Integer codeLength) {
         StringBuilder cardNo = new StringBuilder(cardBin);
         Random random = new Random();
         //随机生成前N-1位
@@ -112,7 +112,7 @@ public class BankCardInfoImpl implements BankCardInfo {
      * @author hanminglu
      * @date 2021/4/13
      */
-    public static Boolean luhn(String cardNo) {
+    private static Boolean luhn(String cardNo) {
 
         int sum = 0;
         int orderNo = 1;

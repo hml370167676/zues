@@ -2,7 +2,10 @@ package com.hml.atp.zues.model.bo;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +13,9 @@ import java.io.Serializable;
  * @author hanminglu
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BankCardInfoBO implements Serializable {
 
     /**

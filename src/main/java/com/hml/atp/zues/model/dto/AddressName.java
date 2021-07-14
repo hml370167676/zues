@@ -1,6 +1,9 @@
 package com.hml.atp.zues.model.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author hanminglu
@@ -8,6 +11,9 @@ import lombok.Data;
  * @date 2021/4/12
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressName {
 
     /**

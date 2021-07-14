@@ -96,7 +96,7 @@ public class IdentityInfoImpl implements IdentityInfo {
      * @author hanminglu
      * @date 2021/4/12
      */
-    public String getBirthday(String birthday) {
+    private String getBirthday(String birthday) {
         if (birthday != null | !birthday.isEmpty()) {
             return birthday;
         } else {
@@ -119,7 +119,7 @@ public class IdentityInfoImpl implements IdentityInfo {
      * @author hanminglu
      * @date 2021/4/12
      */
-    public static String getSequenceCode(Integer sex) {
+    private static String getSequenceCode(Integer sex) {
 
         Random random = new Random();
         if (sex == 1) {
@@ -176,7 +176,7 @@ public class IdentityInfoImpl implements IdentityInfo {
      * @author hanminglu
      * @date 2021/4/12
      */
-    public String getAreaCode(IdentityBO identityBO) {
+    private String getAreaCode(IdentityBO identityBO) {
 
         if (identityBO == null || identityBO.getProvince().isEmpty() || identityBO.getProvince() == null ||
                 identityBO.getCity().isEmpty() || identityBO.getCity() == null || identityBO.getDistrict().isEmpty() |
@@ -200,7 +200,7 @@ public class IdentityInfoImpl implements IdentityInfo {
      * @author hanminglu
      * @date 2021/4/12
      */
-    public Address randomAddress() {
+    private Address randomAddress() {
         int count = addressDao.getCount();
         int first = addressDao.getFirstId();
         Random random = new Random();
@@ -209,7 +209,7 @@ public class IdentityInfoImpl implements IdentityInfo {
     }
 
 
-    public String generateIdentityNo(String addressCode, String birthday, String sequenceCode) {
+    private String generateIdentityNo(String addressCode, String birthday, String sequenceCode) {
         String temp = addressCode + birthday + sequenceCode;
         int sum = 0;
         for (int i = 0; i < temp.length(); i++) {

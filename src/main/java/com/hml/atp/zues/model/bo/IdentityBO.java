@@ -2,12 +2,18 @@ package com.hml.atp.zues.model.bo;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author hanminglu
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class IdentityBO {
 
     @ApiModelProperty(value = "省", example = "北京市")

@@ -1,7 +1,10 @@
 package com.hml.atp.zues.model.bo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author hanminglu
@@ -9,6 +12,9 @@ import lombok.Data;
  * @date 2021/5/7
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class IdentityCardInfoBO {
 
     @ApiModelProperty(value = "姓名")
