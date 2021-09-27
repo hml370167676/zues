@@ -6,7 +6,7 @@ import com.hml.atp.zues.model.vo.BankCardInfoVO;
 import java.util.List;
 
 /**
- * @author hanminglu
+ * @author han
  */
 public interface BankCardInfo {
     /**

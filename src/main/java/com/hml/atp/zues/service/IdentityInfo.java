@@ -4,6 +4,9 @@ import com.hml.atp.zues.model.bo.IdentityBO;
 
 import java.util.List;
 
+/**
+ * @author han
+ */
 public interface IdentityInfo {
     /**
      * 获取身份证号

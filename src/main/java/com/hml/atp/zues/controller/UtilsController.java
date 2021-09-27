@@ -72,13 +72,4 @@ public class UtilsController {
         return RespResult.succeed(bankCardInfo.getBankCardInfo(bankCardInfoBO));
     }
 
-    /**
-     * aPOST https://{{baseurl}}/wealth/garage/ddcoin/exchange
-     * Content-Type: application/json
-     * token:{{token}}
-     *
-     * {
-     *   "exchangeDdcoin": 1000000
-     * }
-     */
 }

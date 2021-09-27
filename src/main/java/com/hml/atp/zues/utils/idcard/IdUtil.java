@@ -1270,7 +1270,7 @@ public class IdUtil {
 
 
     public static String StringDecode(String param) {
-        if (param != null && !param.trim().equals("")) {
+        if (param != null && !"".equals(param.trim())) {
             try {
                 param = URLDecoder.decode(param, "UTF-8");
             } catch (UnsupportedEncodingException e) {

@@ -5,13 +5,12 @@ import com.hml.atp.zues.dao.CardBinDao;
 import com.hml.atp.zues.model.bo.BankCardInfoBO;
 import com.hml.atp.zues.model.entity.CardBin;
 import com.hml.atp.zues.model.vo.BankCardInfoVO;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Story;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
-import org.slf4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -21,8 +20,10 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
+@Epic("手動閥手動閥")
 public class BankCardInfoImplTest extends CaseBase {
     @Mock
     CardBinDao cardBinDao;
@@ -42,6 +43,7 @@ public class BankCardInfoImplTest extends CaseBase {
     }
 
     @Test
+    @Story("士大夫但是")
     public void testGetBankCardInfo() {
         when(cardBinDao.selectByBankCardInfo(any())).thenReturn(Arrays.<CardBin>asList(new CardBin()));
 
@@ -50,6 +52,7 @@ public class BankCardInfoImplTest extends CaseBase {
     }
 
     @Test
+    @Story("生成卡号测试")
     public void generateCardNoTest() throws InvocationTargetException, IllegalAccessException {
         Method generateCardNo = PowerMockito.method(BankCardInfoImpl.class, "generateCardNo", String.class, Integer.class);
         String cardNo = String.valueOf(generateCardNo.invoke(bankCardInfoImpl, "123", 10));

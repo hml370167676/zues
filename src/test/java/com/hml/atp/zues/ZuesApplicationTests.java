@@ -32,12 +32,33 @@ class ZuesApplicationTests {
 
     @Test
     void testHttpUtilDoPost() throws URISyntaxException, IOException {
+        RequestBO request = RequestBO.builder()
+                .baseUrl("test1-api.dada365.com")
+                .path("garage/purchase/batch/all/page/v2")
+                .header("{\"Content-Type\":\"application/json;charset=utf-8\",\"token\":\"e585a0f41225350390abe19510ee4882bc3c5ba1\"}")
+                .reqMethod(ReqMethod.POST)
+                .reqProtocol(ReqProtocol.HTTP)
+                .bodyParameter("{\"status\":4}")
+                .queryParameter("{\"pageNum\":1,\"pageSize\":100}")
+                .build();
+        HttpUtil.send(request);
 
 
     }
 
     @Test
     void testHttpUtilDoUpload() throws URISyntaxException, IOException {
+        RequestBO request = RequestBO.builder()
+                .baseUrl("test1-api.dada365.com")
+                .path("garage/dfs/imgs/upload")
+                .header("{\"Content-Type\":\"multipart/form-data\",\"token\":\"e585a0f41225350390abe19510ee4882bc3c5ba1\"}")
+                .reqMethod(ReqMethod.POST)
+                .reqProtocol(ReqProtocol.HTTP)
+                .bodyParameter("{}")
+                .queryParameter("{}")
+                .filesName("{\"img\":\"d:/20210417012401.png\"}")
+                .build();
+        HttpUtil.send(request);
 
     }
 

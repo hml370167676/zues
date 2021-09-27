@@ -8,4 +8,5 @@ public class TestClass {
     public void testMethod(String data) {
         System.out.println("Data is: " + data);
     }
+
 }

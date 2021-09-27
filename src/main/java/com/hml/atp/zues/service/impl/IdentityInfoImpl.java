@@ -6,6 +6,7 @@ import com.hml.atp.zues.model.dto.AddressName;
 import com.hml.atp.zues.model.entity.Address;
 import com.hml.atp.zues.service.IdentityInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -97,12 +98,12 @@ public class IdentityInfoImpl implements IdentityInfo {
      * @date 2021/4/12
      */
     private String getBirthday(String birthday) {
-        if (birthday != null | !birthday.isEmpty()) {
+        if (null != birthday && !birthday.isEmpty()) {
             return birthday;
         } else {
             //用Date类处理时间，需要注意，年是从1900开始计算所以要减去1900，月是从0开始计算所以要减去1
-            Long startDate = new Date(76, Calendar.JANUARY, 1).getTime();
-            Long endDate = System.currentTimeMillis();
+            long startDate = new LocalDate(1976, 1, 1).toDate().getTime();
+            long endDate = System.currentTimeMillis();
             double randomDate = Math.random() * (endDate - startDate) + startDate;
             Date resultDate = new Date(Math.round(randomDate));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
@@ -204,8 +205,8 @@ public class IdentityInfoImpl implements IdentityInfo {
         int count = addressDao.getCount();
         int first = addressDao.getFirstId();
         Random random = new Random();
-        int idengtityID = random.nextInt(count - first) + 1 + first;
-        return addressDao.selectByPrimaryKey(idengtityID);
+        int identity = random.nextInt(count - first) + 1 + first;
+        return addressDao.selectByPrimaryKey(identity);
     }
 
 
@@ -225,6 +226,5 @@ public class IdentityInfoImpl implements IdentityInfo {
 
     public static void main(String[] args) {
         System.out.println(getSequenceCode(1));
-//        System.out.println(randomAddress());
     }
 }
