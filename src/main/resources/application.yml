@@ -30,7 +30,7 @@ spring:
   #Redis配置
   redis:
     host: 192.168.7.81
-    password: kjdow
+    password: root
     pool:
       maxActive: 500
       maxIdle: 30
@@ -41,7 +41,7 @@ spring:
   #Datasource配置
   datasource:
     username: root
-    password: bakheet001
+    password: root
     url: jdbc:mysql://192.168.4.77:3306/zues?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     driver-class-name: com.mysql.cj.jdbc.Driver
 
